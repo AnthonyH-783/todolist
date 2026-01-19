@@ -11,10 +11,14 @@
   "author": "Anthony Hani",
   "license": "ISC",
   "dependencies": {
+    "@jsonjoy.com/fs-snapshot": "^4.56.2",
+    "date-fns": "^4.1.0",
     "path": "^0.12.7"
   },
   "devDependencies": {
     "css-loader": "^7.1.2",
+    "fs-snapshot": "^0.2.0",
+    "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.6",
     "style-loader": "^4.0.0",
     "webpack": "^5.104.1",

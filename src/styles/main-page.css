@@ -1,0 +1,10 @@
+body{
+    display: flex;
+    
+}
+nav{
+    height: 100vh;
+}
+main{
+    height: 100vh;
+}
