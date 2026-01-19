@@ -4,13 +4,15 @@
 
 class Task{
     #title = "untitled";
-    #description = "";
+    #description = "Description";
     #due = null;
     #priority = null;
-    #notes = "";
+    #notes = "Notes";
     #completed = false;
 
-    constructor({title="untitled", description="", due=null, priority=null, notes="", completed=false} ={}){
+    constructor({title="untitled",
+          description="description",
+          due=new Date(), priority=0, notes="notes", completed=false} ={}){
         this.title = title;
         this.description = description;
         this.due = due;
