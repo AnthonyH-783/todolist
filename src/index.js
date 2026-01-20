@@ -1,7 +1,7 @@
 import "./styles/main-page.css";
-import {Task} from "./backend/todo.js";
+import {Task} from "./backend/task.js";
+import { ToDo } from "./backend/todo.js";
+import { Project } from "./backend/project.js";
+import { compareAsc, format } from "date-fns";
 
-
-const task = new Task({title: "HI"});
-console.log(task.title);
 

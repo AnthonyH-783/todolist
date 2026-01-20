@@ -1,14 +1,16 @@
 /**
  * Logic relating a single task
  */
+import {Task} from "./task.js";
 
-class Task{
+class ToDo{
     #title = "untitled";
     #description = "Description";
     #due = null;
     #priority = null;
     #notes = "Notes";
     #completed = false;
+    #checklist = []; // Contains Task Objects
 
     constructor({title="untitled",
           description="description",
@@ -93,9 +95,27 @@ class Task{
         }
         this.#completed = value;
     }
+    get checklist(){
+        return this.#checklist;
+    }
+    addTask(task){
+        if(!task instanceof Task){
+            throw new Error("Only task can be added to checklists");
+        }
+        this.#checklist.push(task);
+    }
+    removeTask(task){
+        if(!task instanceof Task){
+            throw new Error("Only task objects can be deleted from checklists")
+        }
+        const index = this.#checklist.findIndex((el) => el === task);
+        if(index === -1) throw new Error("Task to be removed not found");
+        this.#checklist.splice(index, 1);
+
+    }
 
 
 }
 
 
-export {Task};
+export {ToDo};
