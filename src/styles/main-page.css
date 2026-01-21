@@ -1,10 +1,57 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body{
     display: flex;
+    width: 100%;
+    height: 100%;
     
 }
 nav{
     height: 100vh;
+    flex-basis: 20%;
+    background-color: #fcfaf8;
+    border-right: 1px solid black;
+    padding: 1.5rem;
 }
 main{
     height: 100vh;
+    padding: 1.5rem;
+    background-color: white;
+    flex-basis: 80%;
+}
+.nav-item{
+    display: flex;
+    gap: 0.25rem;
+    justify-content: baseline;
+    font-size: 1.1rem;
+    align-items: center;
+}
+.nav-item span{
+    color: gray;
+}
+
+#projects{
+    padding-top: 2rem;
+    color: rgb(109, 108, 108);
+}
+#projects>div{
+    padding-left: 0.6rem;
+}
+#main-header{
+    display: flex;
+    justify-content: space-between;
+
+}
+#main-header-options{
+    display:flex;
+    gap:1.1rem;
+}
+#main-header-options div{
+    display: flex;
+    justify-content: end;
+    align-items: center;
 }
