@@ -3,7 +3,7 @@
  */
 import {Task} from "./task.js";
 
-class ToDo{
+class ToDoList{
     #title = "untitled";
     #description = "Description";
     #due = null;
@@ -22,7 +22,7 @@ class ToDo{
         this.notes = notes;
         this.completed = completed;
     }
-
+ 
     get title(){
         return this.#title;
     }
@@ -118,4 +118,4 @@ class ToDo{
 }
 
 
-export {ToDo};
+export {ToDoList};

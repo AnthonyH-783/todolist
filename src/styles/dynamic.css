@@ -1,0 +1,30 @@
+.task-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid gray;
+    position: relative;
+    padding: 1rem;
+}
+
+.drag{
+    cursor: grab;
+    padding: 0.5rem;
+}
+.drag:hover{
+    background-color: gray;
+}
+.hidden{
+    visibility:hidden;
+}
+.flex-row{
+    display: flex;
+    flex-direction: row;
+}
+.flex-col{
+    display: flex;
+    flex-direction: column;
+}
+.row-gap{
+    gap:0.4rem;
+}

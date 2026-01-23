@@ -1,4 +1,4 @@
-import {ToDo} from "./todo.js";
+import {ToDoList} from "./todo.js";
 
 class Project{
     #to_dos = [];
@@ -8,20 +8,20 @@ class Project{
     }
 /**
  * 
- * @param {ToDo} to_do 
+ * @param {ToDoList} to_do 
  */
     addToDo(to_do){
-        if(!to_do instanceof ToDo){
+        if(!to_do instanceof ToDoList){
             throw new Error("Only todo objects can be added to projects");
         }
         this.#to_dos.push(to_do);
     }
 /**
  * 
- * @param {ToDo} to_do 
+ * @param {ToDoList} to_do 
  */
     removeToDo(to_do){
-        if(!to_do instanceof ToDo){
+        if(!to_do instanceof ToDoList){
             throw new Error("Only todo objects can be added to projects");
         }
         const index = this.#to_dos.findIndex((el) => el === to_do);

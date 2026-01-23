@@ -48,10 +48,18 @@ main{
 }
 #main-header-options{
     display:flex;
-    gap:1.1rem;
+    gap:1.3rem;
 }
 #main-header-options div{
     display: flex;
     justify-content: end;
+    gap: 0.2rem;
     align-items: center;
+}
+
+#main-body{
+    margin: 2rem 7rem 2rem 7rem;
+    border: 1px solid black;
+    height: 70vh;
+    overflow: visible;
 }
