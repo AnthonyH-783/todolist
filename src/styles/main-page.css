@@ -2,6 +2,14 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Inter", system-ui, "Segoe UI", sans-serif;
+
+}
+:root{
+    --p1-color: #d1453b;
+    --p2-color: #eb8909;
+    --p3-color: #246fe0;
+    --p4-color: #666;
 }
 
 body{
@@ -33,6 +41,9 @@ main{
 .nav-item span{
     color: gray;
 }
+#completed{
+    color: white;
+}
 
 #projects{
     padding-top: 2rem;
@@ -59,7 +70,11 @@ main{
 
 #main-body{
     margin: 2rem 7rem 2rem 7rem;
-    border: 1px solid black;
+
     height: 70vh;
     overflow: visible;
+}
+.active-tab{
+    background-color: #ffefe5;
+    color: #a81f00;
 }

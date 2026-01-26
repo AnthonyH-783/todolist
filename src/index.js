@@ -4,18 +4,40 @@ import { ToDoList } from "./backend/todo.js";
 import { Project } from "./backend/project.js";
 import { TaskDOM } from "./backend/domGen.js";
 import { compareAsc, format } from "date-fns";
-import "./styles/main-page.css";
+import { taskMouseEnter, taskMouseLeave, circleOnClick } from "./backend/handlers.js";
+import "./styles/dynamic.css";
 
-const main = document.getElementById("main-body");
-const task2 = new Task();
-const container2 = TaskDOM(task2);
 
-main.appendChild(container2);
-const task3 = new Task();
-const container3 = TaskDOM(task3);
+(function ScreenController(){
 
-main.appendChild(container3);
-const task4 = new Task();
-const container4 = TaskDOM(task4);
+    // Getting all initial DOM Selections
+    const main = document.getElementById("main-body");
+    const nav = document.querySelector("nav");
+    const nav_body = nav.querySelector("#nav-body");
+    const project_tabs = nav.querySelector("#projects");
+    const main_header = document.getElementById("main-header");
+    const url_node = main_header.querySelector("div>p");
 
-main.appendChild(container4);
+    // Initializing Required Data Structures
+    
+    
+
+
+    // Rendering DOM given current data structures
+
+
+
+    // Adding Event Listeners
+    main.addEventListener("click", circleOnClick);
+    main.addEventListener('mouseover', taskMouseEnter);
+    main.addEventListener('click', taskMouseEnter);
+    main.addEventListener("mouseout", taskMouseLeave);
+    
+
+
+})();
+
+function initializeProjects(){
+    const projects = new Array();
+    
+}

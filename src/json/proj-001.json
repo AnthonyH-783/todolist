@@ -1,0 +1,59 @@
+{
+  "projectId": "proj-001",
+  "name": "Personal Productivity",
+  "color": "#4F46E5",
+  "createdAt": "2026-01-26T10:00:00Z",
+  "lists": [
+    {
+      "listId": "list-001",
+      "name": "Morning Routine",
+      "tasks": [
+        {
+          "taskId": "task-001",
+          "title": "Drink water",
+          "completed": false,
+          "priority": "low"
+        },
+        {
+          "taskId": "task-002",
+          "title": "10-minute stretch",
+          "completed": true,
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "listId": "list-002",
+      "name": "Work",
+      "tasks": [
+        {
+          "taskId": "task-003",
+          "title": "Reply to emails",
+          "completed": false,
+          "priority": "high"
+        },
+        {
+          "taskId": "task-004",
+          "title": "Finish report",
+          "completed": false,
+          "priority": "high",
+          "dueDate": "2026-01-28"
+        }
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "taskId": "task-005",
+      "title": "Book dentist appointment",
+      "completed": false,
+      "priority": "medium"
+    },
+    {
+      "taskId": "task-006",
+      "title": "Renew gym membership",
+      "completed": true,
+      "priority": "low"
+    }
+  ]
+}
