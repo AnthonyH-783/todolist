@@ -11,14 +11,18 @@
         {
           "taskId": "task-001",
           "title": "Drink water",
+          "description": "Have a full glass of water shortly after waking up",
           "completed": false,
-          "priority": "low"
+          "priority": 4,
+          "due": "2026-01-27"
         },
         {
           "taskId": "task-002",
           "title": "10-minute stretch",
+          "description": "Light full-body stretching to loosen up for the day.",
           "completed": true,
-          "priority": "medium"
+          "priority": 3,
+          "due": "2026-01-27"
         }
       ]
     },
@@ -29,15 +33,18 @@
         {
           "taskId": "task-003",
           "title": "Reply to emails",
+          "description": "Respond to pending work-related emails.",
           "completed": false,
-          "priority": "high"
+          "priority": 1,
+          "due": "2026-01-27"
         },
         {
           "taskId": "task-004",
           "title": "Finish report",
+          "description": "Complete and review the quarterly progress report.",
           "completed": false,
-          "priority": "high",
-          "dueDate": "2026-01-28"
+          "priority": 1,
+          "due": "2026-01-28"
         }
       ]
     }
@@ -46,14 +53,18 @@
     {
       "taskId": "task-005",
       "title": "Book dentist appointment",
+      "description": "Call the dental clinic and schedule a check-up.",
       "completed": false,
-      "priority": "medium"
+      "priority": 2,
+      "due": "2026-02-05"
     },
     {
       "taskId": "task-006",
       "title": "Renew gym membership",
+      "description": "Renew monthly gym membership online.",
       "completed": true,
-      "priority": "low"
+      "priority": 4,
+      "due": "2026-01-31"
     }
   ]
 }

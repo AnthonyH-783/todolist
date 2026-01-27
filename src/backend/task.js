@@ -9,7 +9,7 @@ class Task{
 
     constructor({title="untitled",
           description="description",
-          due=new Date(), priority=0, notes="notes", completed=false} ={}){
+          due=new Date(), priority=4, notes="notes", completed=false} ={}){
         this.title = title;
         this.description = description;
         this.due = due;
@@ -50,19 +50,25 @@ class Task{
     }
 
     set due(value){
-        if(!value instanceof Date){
-            throw new Error("Due Date must an instance of Date");
+        if(!this.#validDateString(value)){
+            throw new Error("Due date must by in YYYY-MM-DD format");
         }
         this.#due = value;
     }
+    #validDateString(date_str){
+        const isoDateRegex = /^\d{4}-\d{2}-\d{2}$/;
+        if (!isoDateRegex.test(date_str)) return false;
+        return true;
+        }
+    
 
     get priority(){
         return this.#priority;
     }
 
     set priority(value){
-        if(typeof value !== "number" || !(value >= 0 && value <= 3)){
-            throw new Error("Priority must be a number within 0 and 3(inclusive)");
+        if(typeof value !== "number" || !(value >= 1 && value <= 4)){
+            throw new Error("Priority must be a number within 1 and 4(inclusive)");
         }
         this.#priority = parseInt(value);
     }

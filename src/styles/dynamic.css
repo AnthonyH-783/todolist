@@ -6,6 +6,9 @@
     position: relative;
     padding: 1rem;
 }
+.task-container p{
+    max-width: 70ch;
+}
 
 .drag{
     cursor: grab;
@@ -57,5 +60,47 @@
 }
 .project-header{
     padding: 0.3rem;
+}
+.chevron-right{
+    padding: 0.1rem;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left:-2rem;
+}
+.chevron-down{
+    padding: 0.1rem;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left:-2rem;
+}
+.chevron-right:hover, .chevron-down:hover{
+    border-radius: 10px;
+    background-color: #efe7e7;
+
+}
+.todo-header{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #666;
+}
+.todo-body{
+    display: grid;
+    grid-template-columns: repeat(1fr);
+
+}
+.todo-body-item{
+    grid-row: 1 / 2;
+
+}
+.todo-container{
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 2rem;
+}
+.collapsed{
+    display: none;
 }
 

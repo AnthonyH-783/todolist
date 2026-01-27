@@ -28,7 +28,7 @@ function TaskDOM(task){
     checked_circle.innerText = "check_circle";
     // Creating title, description, and due date
     const h3 = document.createElement("h3");
-    h3.innerText = task.info;
+    h3.innerText = task.title;
     const description = document.createElement("p");
     description.innerText = task.description;
     const date = document.createElement("div");
@@ -104,19 +104,48 @@ function createProjectTitle(name){
     return header;
 }
 
-function toDoListDOM(list){
+function ToDoListDOM(list){
     // Creating main containers
     const container = document.createElement("div");
     const header = document.createElement("div");
     const body = document.createElement("div");
     // Working on header
-    const chevron = getIcon("chevron_right");
-    chevron.classList.add("chevron-right");
+    const chevron = getIcon("keyboard_arrow_down");
+    chevron.classList.add("chevron-down");
     const header_text = document.createElement("span");
     header_text.innerText = list.name;
     // Creating options icon
-    const options = getIcon("more-horiz");
-    
+    const options = getIcon("more_horiz");
+    // Constructing header
+    header.appendChild(chevron);
+    header.appendChild(header_text);
+    header.appendChild(options);
+    header.classList.add("todo-header");
+    // Constructing body
+    for(const obj of list.tasks){
+        // Iterating through array of tasks
+        const title = obj.title;
+        const description = obj.description
+        const priority = obj.priority;
+        const due = obj.due;
+        const task = new Task({title,description, priority, due});
+        console.log(task.title);
+        const task_dom = TaskDOM(task);
+        body.appendChild(task_dom);
+    }
+    const add_button = createAddTaskButton();
+    body.appendChild(add_button);
+    body.classList.add("todo-body");
+
+    // Constructing container
+    container.appendChild(header);
+    container.appendChild(body);
+    container.classList.add("todo-container");
+
+    return container;
+
+
+
 
 }
 
@@ -125,7 +154,11 @@ function createTodolistTitle(name){
 }
 
 function createAddTaskButton(){
+    const button = document.createElement("button");
+    button.classList.add("add-btn");
+
+    return button;
 
 }
 
-export {TaskDOM};
+export {TaskDOM, ToDoListDOM};
