@@ -10,6 +10,16 @@
     --p2-color: #eb8909;
     --p3-color: #246fe0;
     --p4-color: #666;
+
+    --p1-back: #f0bab6;
+    --p2-back: #ebc797;
+    --p3-back: #bad0f1;
+    --p4-back: #efeded;
+
+    --dark-orange: #d33322;
+    --light-orange: #ffefe5;
+
+
 }
 
 body{

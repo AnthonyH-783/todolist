@@ -21,7 +21,8 @@ function taskMouseLeave(event){
 
 
 function isTaskContainer(event){
-    return event.target.classList.contains("task-container");
+    
+    return event.target.classList.contains("task-container") ;
 }
 
 function circleOnClick(event){
@@ -29,8 +30,18 @@ function circleOnClick(event){
     const node = event.target;
     // Toggle between circle and check cirle
     toggleCircles(node);
-}
+    crossTitle(node);
 
+}
+function crossTitle(node){
+    const title = node.nextSibling.querySelector("h3");
+    if(title.classList.contains("crossed")){
+        title.classList.remove("crossed");
+    }
+    else{
+        title.classList.add("crossed");
+    }
+}
 function isCircle(event){
     const node = event.target;
     const target_class = "material-symbols-outlined";
@@ -111,14 +122,13 @@ function isRightChevron(node){
 function rotateChevronRight(chevron){
     chevron.innerText = "chevron_right";
     chevron.classList.replace("chevron-down", "chevron-right");
-    console.log(chevron.classList);
-    console.log(chevron.innerText);
 
 }
 function rotateChevronDown(chevron){
     chevron.innerText = "keyboard_arrow_down";
     chevron.classList.replace("chevron-right", "chevron-down");
-    console.log(chevron.classList);
-    console.log(chevron.innerText);
+
 }
-export {taskMouseEnter, taskMouseLeave, circleOnClick, onChevronClick};
+
+export {taskMouseEnter, taskMouseLeave, circleOnClick, onChevronClick
+};

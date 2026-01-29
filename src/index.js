@@ -5,8 +5,7 @@ import { ToDoList } from "./backend/todo.js";
 import { Project } from "./backend/project.js";
 import { TaskDOM, ToDoListDOM } from "./backend/domGen.js";
 import { compareAsc, format } from "date-fns";
-import { taskMouseEnter, taskMouseLeave, circleOnClick, onChevronClick
-
+import { taskMouseEnter, taskMouseLeave, circleOnClick, onChevronClick,
 } from "./backend/handlers.js";
 import "./styles/dynamic.css";
 
@@ -41,6 +40,7 @@ import "./styles/dynamic.css";
     main.addEventListener('click', taskMouseEnter);
     main.addEventListener("mouseout", taskMouseLeave);
     main.addEventListener("click", onChevronClick);
+
     
 
 

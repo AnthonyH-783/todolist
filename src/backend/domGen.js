@@ -21,7 +21,8 @@ function TaskDOM(task){
     // Creating circle / checkcircle
     const circle = document.createElement("div");
     const checked_circle = document.createElement("div");
-    circle.classList.add("material-symbols-outlined", task.priority, "circle-container", "flex-row", "align-center", "justify-center");
+    const priority = "p" + task.priority;
+    circle.classList.add("material-symbols-outlined", priority, "circle-container", "flex-row", "align-center", "justify-center");
     checked_circle.classList.add("material-symbols-outlined");
     circle.innerText = "circle";
     
@@ -155,7 +156,14 @@ function createTodolistTitle(name){
 
 function createAddTaskButton(){
     const button = document.createElement("button");
-    button.classList.add("add-btn");
+    button.classList.add("add-btn-lst");
+    const icon = getIcon("add_2");
+    icon.style.color = "#d33322";
+    button.appendChild(icon);
+    const text = document.createElement("span");
+    text.innerText = "Add Task";
+    text.style.color = "gray";
+    button.appendChild(text);
 
     return button;
 
