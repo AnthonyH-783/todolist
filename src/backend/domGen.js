@@ -169,4 +169,4 @@ function createAddTaskButton(){
 
 }
 
-export {TaskDOM, ToDoListDOM};
+export {TaskDOM, ToDoListDOM, getIcon};

@@ -11,7 +11,7 @@ function taskMouseEnter(event){
 
 function taskMouseLeave(event){
     if(!isTaskContainer(event)) return;
-    const node = event.target;
+    const node = event.target.closest(".task-container");
     const drag = node.querySelector(".drag");
     const edits = node.querySelector(".edit-task");
     drag.classList.add("hidden");
@@ -22,7 +22,7 @@ function taskMouseLeave(event){
 
 function isTaskContainer(event){
     
-    return event.target.classList.contains("task-container") ;
+    return event.target.closest(".task-container");
 }
 
 function circleOnClick(event){
