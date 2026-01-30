@@ -1,5 +1,5 @@
 import {getIcon} from "./domGen.js"
-import { dateBtnOnClick } from "./reusable-handlers.js";
+import { dateBtnOnClick, addTaskBtnOnClick } from "./reusable-handlers.js";
 
 
 function addTaskModal(){
@@ -21,6 +21,9 @@ function addTaskModal(){
     // Forming container
     form.appendChild(upper);
     form.appendChild(lower);
+
+    // Add event listener for submission
+    form.addEventListener("click", addTaskBtnOnClick);
 
     return form;
 

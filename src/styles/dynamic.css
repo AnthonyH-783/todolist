@@ -258,6 +258,7 @@ select:open::picker-icon {
 }
 .task-title:focus, .task-description:focus{
     outline:none;
+    background-color: none;
 }
 .task-description{
     border: none;
@@ -265,4 +266,17 @@ select:open::picker-icon {
 .task-attr button, .task-attr select{
     border: 1px solid #ebe6e6;
     
+}
+/*
+Source - https://stackoverflow.com/a/14205976
+Posted by Fareed Alnamrouti, modified by community. See post 'Timeline' for change history
+Retrieved 2026-01-30, License - CC BY-SA 4.0
+*/
+
+/* Change the white to any color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
