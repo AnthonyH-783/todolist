@@ -154,8 +154,11 @@
 }
 
 .add-task{
-    display: flex;
-    flex-direction: column;
+    width: 35rem;
+    padding: 1.5rem;
+    border: 1px solid #f4f1f1;
+    border-radius: 12px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .gray-border-bottom{
@@ -195,6 +198,9 @@ select,
 ::picker(select) {
   appearance: base-select;
 }
+select{
+    padding: 0.1rem 0.1rem 0.1rem 0.6rem;
+}
 
 select::picker-icon {
   color: #999999;
@@ -206,9 +212,57 @@ select:open::picker-icon {
 ::picker(select){
     border: 1px solid rgb(232, 227, 227);
     border-radius: 4px;
-    box-shadow: 1px 0px rgb(182, 180, 180);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    position: absolute;
+}
+.destination-select{
+    border: none;
 }
 
-option{
-    padding: 0.2rem;
+.cancel-btn, .submit-task{
+    min-width: 6rem;
+    min-height: 2rem;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+.cancel-btn:hover, .submit-task:hover{
+    filter: brightness(95%);
+}
+.submit-task{
+    background-color: var(--dark-orange);
+    color: white;
+    
+}
+.cancel-btn{
+    color: #666;
+}
+.pd-bot-05rem{
+    padding-bottom: 0.5rem;
+}
+.pd-bot-1rem{
+    padding-bottom: 1rem;
+}
+.pd-top-05rem{
+    padding-top:0.5rem;
+}
+.pd-top-1rem{
+    padding-top: 1rem;
+}
+
+.task-title{
+    border:none;
+    font-weight: 500;
+    font-size: 1.4rem;
+}
+.task-title:focus, .task-description:focus{
+    outline:none;
+}
+.task-description{
+    border: none;
+}
+.task-attr button, .task-attr select{
+    border: 1px solid #ebe6e6;
+    
 }

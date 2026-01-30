@@ -2,7 +2,7 @@
 function taskMouseEnter(event){
     if(!isTaskContainer(event)) return;
 
-    const container = event.target;
+    const container = event.target.closest(".task-container");
     const hiddens = container.querySelectorAll(".hidden");
     hiddens.forEach(element => {
         element.classList.remove("hidden");

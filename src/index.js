@@ -7,7 +7,7 @@ import { TaskDOM, ToDoListDOM } from "./backend/domGen.js";
 import { compareAsc, format } from "date-fns";
 import { taskMouseEnter, taskMouseLeave, circleOnClick, onChevronClick,
 } from "./backend/handlers.js";
-import { getTaskAttrDiv } from "./backend/modals.js";
+import { addTaskModal} from "./backend/modals.js";
 import "./styles/dynamic.css";
 
 
@@ -26,9 +26,9 @@ import "./styles/dynamic.css";
     const lists = json.lists;
     const todo = lists[0];
     const tododom = ToDoListDOM(todo);
-    const test = getTaskAttrDiv();
-    main.appendChild(tododom);
+    const test = addTaskModal();
     main.appendChild(test);
+    
     
     
 

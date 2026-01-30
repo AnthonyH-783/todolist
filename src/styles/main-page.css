@@ -32,7 +32,6 @@ nav{
     height: 100vh;
     flex-basis: 20%;
     background-color: #fcfaf8;
-    border-right: 1px solid black;
     padding: 1.5rem;
 }
 main{
@@ -47,6 +46,16 @@ main{
     justify-content: baseline;
     font-size: 1.1rem;
     align-items: center;
+    border-radius: 6px;
+    padding: 0.3rem;
+}
+.nav-item:hover{
+    background-color: #f1eeee;
+    cursor: pointer;
+}
+.nav-item:active{
+    background-color: var(--light-orange);
+    color: var(--dark-orange);
 }
 .nav-item span{
     color: gray;
@@ -83,6 +92,16 @@ main{
 
     height: 70vh;
     overflow: visible;
+}
+#add-navbar{
+    color: var(--dark-orange);
+    font-weight: 500;
+}
+#add-nav-icon{
+    color: white;
+    border: none;
+    border-radius: 100%;
+    background-color: var(--dark-orange);
 }
 .active-tab{
     background-color: #ffefe5;
