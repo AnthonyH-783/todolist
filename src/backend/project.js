@@ -6,8 +6,22 @@ class Project{
     #to_dos = [];
     #unorganized_tasks = [];
 
-    get toDos(){
+
+    constructor({title, todos, unorganized} = {}) {
+        this.#title = title;
+        this.#to_dos = todos;
+        this.#unorganized_tasks = unorganized;
+        
+    }
+    get title(){
+        return this.#title;
+    }
+    get todos(){
         return this.#to_dos;
+    }
+
+    get unorganizedTasks(){
+        return this.#unorganized_tasks;
     }
 /**
  * 

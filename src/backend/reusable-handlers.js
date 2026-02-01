@@ -37,5 +37,22 @@ function addTaskBtnOnClick(event){
     return data;
 }
 
+function addProjectBtnOnClick(event){
+    const button = event.target;
+    if(!button || button.id !== "add-project") return;
+    console.log("hi");
+    const dialog = document.querySelector("dialog");
+    dialog.showModal();
+}
 
-export{dateBtnOnClick, addTaskBtnOnClick};
+function cancelNewProject(event){
+    const node = event.target;
+    if(!node || (!node.classList.contains("cancel-btn") && node.id !== "close-project-modal")) return;
+    console.log("project cancelled");
+    const dialog = document.querySelector("dialog");
+    const form = dialog.querySelector("form");
+    form.reset();
+    dialog.close();
+}
+
+export{dateBtnOnClick, addTaskBtnOnClick, addProjectBtnOnClick, cancelNewProject};

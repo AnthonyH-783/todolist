@@ -44,6 +44,9 @@
 .justify-baseline{
     justify-content: baseline;
 }
+.justify-end{
+    justify-content: end;
+}
 .space-between{
     justify-content: space-between;
 }
@@ -250,6 +253,9 @@ select:open::picker-icon {
 .pd-top-1rem{
     padding-top: 1rem;
 }
+.pd-1rem{
+    padding: 1rem;
+}
 
 .task-title{
     border:none;
@@ -279,4 +285,8 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active{
     -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+
+#close-project-modal{
+    cursor: pointer;
 }

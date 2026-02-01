@@ -50,6 +50,14 @@ main{
 main,nav{
     margin:2em;
 }
+#main-header-options div{
+    cursor: pointer;
+    padding: 0.3rem;
+}
+#main-header-options div:hover{
+    background-color: #dadada;
+    border-radius: 6px;
+}
 .nav-item{
     display: flex;
     gap: 0.25rem;
@@ -116,4 +124,25 @@ main,nav{
 .active-tab{
     background-color: #ffefe5;
     color: #a81f00;
+}
+
+#project-title-tab{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#add-project:hover{
+    cursor: pointer;
+}
+
+dialog{
+    position: absolute;
+    top:40%;
+    left: 25%;
+    
+    
+}
+dialog form{
+    gap:2rem;
 }
