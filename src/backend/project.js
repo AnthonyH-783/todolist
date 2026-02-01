@@ -43,8 +43,23 @@ class Project{
         if(!task instanceof Task){
             throw new Error("Only todos or tasks can be added to projects");
         }
-        const index = this.#unorganized_tasks.findLast((el) => el === task);
+        const index = this.#unorganized_tasks.findIndex((el) => el === task);
         this.#unorganized_tasks.splice(index, 1);
+    }
+    toJSON(){
+        // Serializing todos
+        const todos = this.#to_dos.map((todo) => todo.toJSON());
+        // Serializing unorganized tasks
+        const unorganized = this.#unorganized_tasks.map((task) => task.toJSON());
+        // Creating export object
+        const export_obj = {title: this.#title,
+                            todos: todos,
+                            unorganized: unorganized,
+
+        }
+        // Serializing export object
+        const serialized = JSON.stringify(export_obj);
+        return serialized;
     }
 }
 export {Project};

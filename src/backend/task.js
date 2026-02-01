@@ -96,6 +96,18 @@ class Task{
         }
         this.#completed = value;
     }
+    toJSON(){
+        const export_obj = {title: this.#title,
+                            description: this.#description,
+                            due: this.#due,
+                            priority: this.#priority,
+                            notes: this.#notes,
+                            completed: this.#completed
+                            };
+        const serialized = JSON.stringify(export_obj);
+        return serialized;
+    }
+                  
 }
 
 export {Task};

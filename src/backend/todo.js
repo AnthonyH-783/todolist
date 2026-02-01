@@ -98,6 +98,9 @@ class ToDoList{
     get checklist(){
         return this.#checklist;
     }
+    set checklist(value){
+        this.#checklist = value;
+    }
     addTask(task){
         if(!task instanceof Task){
             throw new Error("Only task can be added to checklists");
@@ -111,6 +114,22 @@ class ToDoList{
         const index = this.#checklist.findIndex((el) => el === task);
         if(index === -1) throw new Error("Task to be removed not found");
         this.#checklist.splice(index, 1);
+
+    }
+    toJSON(){
+        const serialized_tasks = [];
+        for(const i = 0; i < this.#checklist; i++){
+            const task_obj = this.#checklist[i];
+            const task_str = task_obj.toJSON();
+            serialized_tasks.push(task_str);
+        }
+
+        const export_obj = {title: this.#title,
+                            tasks: serialized_tasks,
+        }
+        const serialized = JSON.stringify(export_obj);
+
+        return serialized;
 
     }
 

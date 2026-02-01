@@ -9,6 +9,8 @@ import { taskMouseEnter, taskMouseLeave, circleOnClick, onChevronClick,
 } from "./backend/handlers.js";
 import { addTaskModal} from "./backend/modals.js";
 import "./styles/dynamic.css";
+import { load } from "./backend/projectLoader.js";
+
 
 
 (async function ScreenController(){
@@ -27,7 +29,8 @@ import "./styles/dynamic.css";
     const todo = lists[0];
     const tododom = ToDoListDOM(todo);
     const test = addTaskModal();
-    main.appendChild(test);
+    main.appendChild(tododom);
+    
     
     
     
