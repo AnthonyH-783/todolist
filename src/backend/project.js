@@ -12,6 +12,7 @@ class Project{
         this.#to_dos = todos;
         this.#unorganized_tasks = unorganized;
         
+        
     }
     get title(){
         return this.#title;
@@ -20,7 +21,7 @@ class Project{
         return this.#to_dos;
     }
 
-    get unorganizedTasks(){
+    get unorganized_tasks(){
         return this.#unorganized_tasks;
     }
 /**

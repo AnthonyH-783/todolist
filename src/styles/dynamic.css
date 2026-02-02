@@ -290,3 +290,42 @@ input:-webkit-autofill:active{
 #close-project-modal{
     cursor: pointer;
 }
+.add-section-h3{
+    position: relative;
+    text-align: center;
+    visibility: hidden;
+}
+.add-section-h3::before{
+    content: "";
+    position: absolute;
+    top: 50%;
+    height: 2px;
+    width: 40%;
+    color: var(--dark-orange);
+    right: 0;
+    z-index: -2;
+
+
+}
+.add-section-h3::after{
+    content: "";
+    position: absolute;
+    top: 50%;
+    height: 2px;
+    width: 40%;
+    color: var(--dark-orange);
+    left: 0;
+    z-index: -2;
+
+}
+
+.add-section-span{
+    background-color: white;
+    padding: 1rem;
+
+}
+
+.add-section-h3:hover, .add-section-h3:active{
+    visibility: visible;
+    cursor: pointer;
+}

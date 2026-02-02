@@ -1,4 +1,4 @@
-import { getIcon, TaskDOM } from "./domGen";
+import {TaskDOM, ToDoListDOM, createProjectTitle, createAddTaskButton, addSectionButton, getIcon} from "./domGen";
 import { Project } from "./project";
 
 /**
@@ -33,7 +33,31 @@ function loadProjectNamesToNavbar(projects, nav){
 
 function loadProjectDOM(project, container){
 
+    // Extracting project data
+    const title = project.title;
     const todos = project.todos;
+    const unorganized = project.unorganized_tasks;
+
+    // Creating title
+    const header = createProjectTitle(title);
+    container.appendChild(header);
+    // Creating button for adding unorganized tasks
+    const add_unorganized_btn = createAddTaskButton();
+    container.appendChild(add_unorganized_btn);
+    // Listing any active unorganized tasks
+    for(const task of unorganized){
+        const dom = TaskDOM(task);
+        container.appendChild(dom);
+    }
+    // Listing any active todo lists
+    for(const list of todos){
+        const dom = ToDoListDOM(list);
+        container.appendChild(dom);
+    }
+    // Add Section Option
+    const add_section_btn = addSectionButton();
+    container.appendChild(add_section_btn);
+
 }
 
 function createNavTab(name){

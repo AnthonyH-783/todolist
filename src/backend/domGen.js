@@ -169,4 +169,13 @@ function createAddTaskButton(){
 
 }
 
-export {TaskDOM, ToDoListDOM, getIcon};
+function addSectionButton(){
+    const h3 = document.createElement("h3");
+    const span = document.createElement("span");
+    span.innerText = "Add Section";
+    
+    span.classList.add("add-section-span");
+    h3.classList.add("add-section-h3");
+}
+
+export {TaskDOM, ToDoListDOM, createProjectTitle, createAddTaskButton, addSectionButton, getIcon};
