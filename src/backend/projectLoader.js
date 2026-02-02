@@ -37,6 +37,7 @@ function loadProjectDOM(project, container){
     const title = project.title;
     const todos = project.todos;
     const unorganized = project.unorganized_tasks;
+    console.log(title, todos, unorganized, typeof unorganized);
 
     // Creating title
     const header = createProjectTitle(title);
@@ -68,4 +69,4 @@ function createNavTab(name){
     div.appendChild(span);
     div.appendChild(document.createTextNode(name));
 }
-export {loadSavedProjects, loadProjectNamesToNavbar};
+export {loadSavedProjects, loadProjectNamesToNavbar, loadProjectDOM};

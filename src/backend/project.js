@@ -8,9 +8,9 @@ class Project{
 
 
     constructor({title, todos, unorganized} = {}) {
-        this.#title = title;
-        this.#to_dos = todos;
-        this.#unorganized_tasks = unorganized;
+        this.title = title;
+        this.todos = todos;
+        this.unorganized_tasks = unorganized;
         
         
     }
@@ -23,6 +23,28 @@ class Project{
 
     get unorganized_tasks(){
         return this.#unorganized_tasks;
+    }
+    set title(value){
+        if(!value || value.length > 100){
+            throw new Error("Given value is either undefined or too long");
+        }
+        this.#title = value;
+    }
+    set todos(value){
+        if(!value || !value instanceof Array){
+            this.#to_dos = new Array();
+        }
+        else{
+            this.#to_dos = value;
+        }
+    }
+    set unorganized_tasks(value){
+        if(!value || !value instanceof Array){
+            this.#unorganized_tasks = new Array();
+        }
+        else{
+            this.#unorganized_tasks = value;
+        }
     }
 /**
  * 

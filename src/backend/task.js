@@ -50,8 +50,8 @@ class Task{
     }
 
     set due(value){
-        if(!this.#validDateString(value)){
-            throw new Error("Due date must by in YYYY-MM-DD format");
+        if(!value instanceof Date){
+            throw new Error("Due date must be an instance of date");
         }
         this.#due = value;
     }

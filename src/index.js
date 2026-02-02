@@ -36,11 +36,6 @@ import { loadSavedProjects } from "./backend/projectLoader.js";
     const projects = [];
     const saved_projects = loadSavedProjects();
     projects.concat(saved_projects);
-    const json = await import("./json/proj-001.json");
-    const lists = json.lists;
-    const todo = lists[0];
-    const tododom = ToDoListDOM(todo);
-
     
     
     

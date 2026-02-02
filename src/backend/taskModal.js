@@ -1,10 +1,11 @@
 import {getIcon} from "./domGen.js"
-import { dateBtnOnClick, addTaskBtnOnClick } from "./reusable-handlers.js";
+import { dateBtnOnClick, addTaskBtnOnClick, cancelTaskModal } from "./reusable-handlers.js";
 
 
 function addTaskModal(){
     // Creating main container and separting it into upper and lower
     const form = document.createElement("form");
+    form.method = "dialog";
     const upper = document.createElement("div");
     const lower = document.createElement("div");
     // Adding flex col display
@@ -24,6 +25,7 @@ function addTaskModal(){
 
     // Add event listener for submission
     form.addEventListener("click", addTaskBtnOnClick);
+    form.addEventListener("click", cancelTaskModal);
 
     return form;
 
@@ -32,7 +34,7 @@ function addTaskModal(){
 function createTaskInfoDiv(){
     const container = document.createElement("div");
     const title = document.createElement("input");
-    title.name = "task_title";
+    title.name = "title";
     title.placeholder = "Task Title";
     title.required = true;
     title.classList.add("task-title");
@@ -93,10 +95,10 @@ function createSelectPrior() {
     select.name = "priority";
 
     const priorities = {
-    1: { label: "Priority 1", flag: "🔴", color: "red" },
-    2: { label: "Priority 2", flag: "🟠", color: "orange" },
-    3: { label: "Priority 3", flag: "🔵", color: "blue" },
-    4: { label: "Priority 4", flag: "⚪", color: "gray" }
+    1: { label: "1", flag: "🔴", color: "red" },
+    2: { label: "2", flag: "🟠", color: "orange" },
+    3: { label: "3", flag: "🔵", color: "blue" },
+    4: { label: "4", flag: "⚪", color: "gray" }
 };
 
     const option = document.createElement("option");
@@ -106,11 +108,11 @@ function createSelectPrior() {
     select.appendChild(option);
     for (const priority in priorities) {
         const flag = priorities[priority].flag;
-        const label = priorities[priority].label;
+        const label = parseInt(priorities[priority].label);
 
         const option = document.createElement("option");
         option.innerText = flag + " " + label;
-        option.value = label;
+        option.value = parseInt(label);
         select.appendChild(option);
        
     }

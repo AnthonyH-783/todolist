@@ -36,6 +36,7 @@ function addProjectModal(){
     const submit = document.createElement("button");
     submit.innerHTML = "Add Project";
     submit.classList.add("submit-task");
+    submit.type = "submit";
     container.appendChild(cancel);
     container.appendChild(submit);
     bottom.appendChild(container);

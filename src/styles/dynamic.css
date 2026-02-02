@@ -293,17 +293,21 @@ input:-webkit-autofill:active{
 .add-section-h3{
     position: relative;
     text-align: center;
+    color: var(--dark-orange);
+    font-weight: 600;
     visibility: hidden;
 }
+
 .add-section-h3::before{
     content: "";
     position: absolute;
     top: 50%;
-    height: 2px;
+    height: 1px;
     width: 40%;
-    color: var(--dark-orange);
+    background-color: var(--dark-orange);
     right: 0;
-    z-index: -2;
+    z-index: 4;
+    
 
 
 }
@@ -311,21 +315,25 @@ input:-webkit-autofill:active{
     content: "";
     position: absolute;
     top: 50%;
-    height: 2px;
+    background-color: var(--dark-orange);
+    height: 1px;
     width: 40%;
-    color: var(--dark-orange);
     left: 0;
-    z-index: -2;
+    z-index: 4;
+
+    
 
 }
 
 .add-section-span{
     background-color: white;
-    padding: 1rem;
+    font-size: 0.9rem;
+    z-index: 5;
+    
 
 }
 
-.add-section-h3:hover, .add-section-h3:active{
+.add-section-container:hover h3, .add-section-container:active h3{
     visibility: visible;
     cursor: pointer;
 }

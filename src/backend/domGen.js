@@ -1,6 +1,7 @@
 import "../styles/dynamic.css";
 import {Task} from "./task";
 import {format } from "date-fns";
+import {openTaskModal} from "./reusable-handlers";
 
 /**
  * Factories that generate commonly used HTML structures
@@ -165,17 +166,23 @@ function createAddTaskButton(){
     text.style.color = "gray";
     button.appendChild(text);
 
+    button.addEventListener("click", openTaskModal);
+
     return button;
 
 }
 
 function addSectionButton(){
+    const container = document.createElement("div");
+    container.className ="add-section-container";
     const h3 = document.createElement("h3");
     const span = document.createElement("span");
     span.innerText = "Add Section";
-    
+    h3.appendChild(span);
     span.classList.add("add-section-span");
     h3.classList.add("add-section-h3");
+    container.appendChild(h3);
+    return container;
 }
 
 export {TaskDOM, ToDoListDOM, createProjectTitle, createAddTaskButton, addSectionButton, getIcon};
