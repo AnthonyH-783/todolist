@@ -17,8 +17,11 @@
     left:-0.2rem;
     
 }
-.hidden{
+.invisible{
     visibility:hidden;
+}
+.invisible:hover, .invisible:active{
+    visibility: hidden;
 }
 
 .flex-row{
@@ -336,4 +339,22 @@ input:-webkit-autofill:active{
 .add-section-container:hover h3, .add-section-container:active h3{
     visibility: visible;
     cursor: pointer;
+}
+.section-input{
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #dadada;
+    border-radius: 6px;
+    color: black;
+    font-weight: 700;
+    font-size: 1rem;
+}
+.section-input:focus{
+    border: 1px solid #b7b4b4;
+    outline: none;
+}
+
+.section-input::placeholder{
+    font-weight: 700;
+    color: #9b9a9a;
 }

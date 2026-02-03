@@ -2,6 +2,8 @@ import "../styles/dynamic.css";
 import {Task} from "./task";
 import {format } from "date-fns";
 import {openTaskModal} from "./reusable-handlers";
+import { openTodoListModal } from "./reusable-handlers";
+import { addTodoListModal } from "./todoModal";
 
 /**
  * Factories that generate commonly used HTML structures
@@ -142,7 +144,10 @@ function ToDoListDOM(list){
     // Constructing container
     container.appendChild(header);
     container.appendChild(body);
+    const add_section_button = addSectionButton();
+    container.appendChild(add_section_button);
     container.classList.add("todo-container");
+
 
     return container;
 
@@ -182,6 +187,7 @@ function addSectionButton(){
     span.classList.add("add-section-span");
     h3.classList.add("add-section-h3");
     container.appendChild(h3);
+    container.addEventListener("click", openTodoListModal);
     return container;
 }
 

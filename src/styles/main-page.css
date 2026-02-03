@@ -108,8 +108,8 @@ main,nav{
 #main-body{
     margin: 2rem 7rem 2rem 7rem;
 
-    height: 70vh;
-    overflow: visible;
+    height: auto;
+    
 }
 #add-navbar{
     color: var(--dark-orange);
