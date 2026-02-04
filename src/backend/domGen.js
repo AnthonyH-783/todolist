@@ -117,7 +117,7 @@ function ToDoListDOM(list){
     const chevron = getIcon("keyboard_arrow_down");
     chevron.classList.add("chevron-down");
     const header_text = document.createElement("span");
-    header_text.innerText = list.name;
+    header_text.innerText = list.title;
     // Creating options icon
     const options = getIcon("more_horiz");
     // Constructing header
@@ -144,8 +144,6 @@ function ToDoListDOM(list){
     // Constructing container
     container.appendChild(header);
     container.appendChild(body);
-    const add_section_button = addSectionButton();
-    container.appendChild(add_section_button);
     container.classList.add("todo-container");
 
 
@@ -178,17 +176,19 @@ function createAddTaskButton(){
 }
 
 function addSectionButton(){
-    const container = document.createElement("div");
-    container.className ="add-section-container";
+    const add_section_btn = document.createElement("div");
+    add_section_btn.className ="add-section-container";
     const h3 = document.createElement("h3");
     const span = document.createElement("span");
     span.innerText = "Add Section";
     h3.appendChild(span);
     span.classList.add("add-section-span");
     h3.classList.add("add-section-h3");
-    container.appendChild(h3);
-    container.addEventListener("click", openTodoListModal);
-    return container;
+    add_section_btn.appendChild(h3);
+    add_section_btn.addEventListener("click", (evt)    => {
+        openTodoListModal(add_section_btn); // Event listener handles dynamic content
+    });
+    return add_section_btn;
 }
 
 export {TaskDOM, ToDoListDOM, createProjectTitle, createAddTaskButton, addSectionButton, getIcon};

@@ -14,13 +14,14 @@ class ToDoList{
 
     constructor({title="untitled",
           description="description",
-          due=new Date(), priority=0, notes="notes", completed=false} ={}){
+          due=new Date(), priority=0, notes="notes", completed=false, tasks=[]} ={}){
         this.title = title;
         this.description = description;
         this.due = due;
         this.priority = priority;
         this.notes = notes;
         this.completed = completed;
+        this.tasks = tasks;
     }
  
     get title(){
@@ -95,10 +96,10 @@ class ToDoList{
         }
         this.#completed = value;
     }
-    get checklist(){
+    get tasks(){
         return this.#checklist;
     }
-    set checklist(value){
+    set tasks(value){
         this.#checklist = value;
     }
     addTask(task){

@@ -1,9 +1,10 @@
-import { addTodoListOnClick } from "./reusable-handlers";
+import { addTodoListOnClick, cancelTaskModal } from "./reusable-handlers";
 
-function addTodoListModal(){
+function addTodoListModal(add_section_btn){
     // Creating main container and separating it into upper and lower
     const form = document.createElement("form");
     form.classList.add("flex-col","row-gap")
+    form.method = "dialog";
     // Creating input
     const input = document.createElement("input");
     input.required = true;
@@ -34,7 +35,12 @@ function addTodoListModal(){
     form.appendChild(lower);
 
     // Adding event listeners
-    form.addEventListener("click", addTodoListOnClick);
+    console.log("event listenr about to be set");
+    submit_btn.addEventListener("click", (evt) => {
+        evt.preventDefault();
+        addTodoListOnClick(form, add_section_btn);
+    });
+    cancel_btn.addEventListener("click", cancelTaskModal);
 
     return form;
 

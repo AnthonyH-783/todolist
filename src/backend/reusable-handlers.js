@@ -4,7 +4,7 @@ import { Project } from "./project";
 import { addTaskModal } from "./taskModal";
 import { addTodoListModal } from "./todoModal.js";
 import { Task } from "./task";
-import { TaskDOM, ToDoListDOM } from "./domGen";
+import { TaskDOM, ToDoListDOM, addSectionButton} from "./domGen";
 import { ToDoList } from "./todo.js";
 
 
@@ -44,23 +44,37 @@ function addTaskBtnOnClick(event){
         value = (key === "priority") ? parseInt(value) : value;
         constructor[key] = value;
     }
+    // Creating Task Object
     const task = new Task(constructor);
-    // Selecting right container 
-    const is_bound = node.closest(".todo-container") !== null;
-    const container = (is_bound) ? node.closest("todo-container") : node.closest("#main-body");
-    // Restoring add task button
-    const hidden = form.parentNode.querySelectorAll(".hidden");
-    hidden.forEach(hidden => {
-        hidden.classList.remove("hidden");
-        
-    });
-    // Adding Task DOM and removing modal
-    container.removeChild(form);
     const task_dom = TaskDOM(task);
-    container.appendChild(task_dom);
+    // Selecting right container 
+    const project_container = node.closest("#main-body");
+    const is_bound = node.closest(".todo-container");
+    // Adding task to right container
+    if(!is_bound){
+        addTaskInProject(project_container, task_dom);
+    }
+    else{
+        const todo_container = is_bound.querySelector(".todo-body");
+        addTaskInTodoList(todo_container, task_dom);
+    }
+    // Restoring add task button
+    restoreSectionAddition(project_container);
+    restoreTaskAddition(project_container);
+    // Removing the form
+    form.remove();
+}
+
+function addTaskInTodoList(todo_container, task_dom){
+    const add_btn = todo_container.querySelector(".add-btn-lst");
+    todo_container.insertBefore(task_dom, add_btn);
     
 
+}
 
+function addTaskInProject(project_container, task_dom){
+    const add_btn = project_container.querySelector(".add-btn-lst");
+    add_btn.after(task_dom);
 }
 
 function addProjectBtnOnClick(event){
@@ -104,37 +118,40 @@ function openTaskModal(event){
     if(!node || !node.closest(".add-btn-lst")) return;
     // Selecting right container 
     const is_bound = node.closest(".todo-container") !== null;
-    const container = (is_bound) ? node.closest("todo-container") : node.closest("#main-body");
+    const container = (is_bound) ? node.closest(".todo-container") : node.closest("#main-body");
     // Opening modal
     const modal = addTaskModal();
     container.appendChild(modal);
     // Hiding the add options
     const button = node.closest("button");
     button.classList.add("invisible");
-    const add_section = node.parentNode.querySelector(".add-section-container");
-    add_section.classList.add("invisible");
+    const main_container = node.closest("#main-body");
+    disableTaskAddition(main_container);
+    disableSectionAddition(main_container);
     
 }
 
 function cancelTaskModal(event){
     const node = event.target;
+    const project_container = node.closest("#main-body");
     if(!node || !node.classList.contains("cancel-btn")) return;
     const modal = node.closest("form");
-    modal.parentNode.querySelector(".add-btn-lst").classList.remove("invisible");
-    modal.parentNode.querySelector(".add-section-container").classList.remove("invisible");
+    restoreSectionAddition(project_container);
+    restoreTaskAddition(project_container);
     modal.remove();
 }
 
-function openTodoListModal(event){
+
+
+function openTodoListModal(add_section_btn){
     // Validating node selection
-    const node = event.target.closest(".add-section-container");
-    console.log("Entered");
-    if(!node) return;
+    if(!add_section_btn || !add_section_btn.classList.contains("add-section-container")) return;
     // Adding the modal after the add section button
-    const input_form = addTodoListModal();
-    node.after(input_form);
+    const input_form = addTodoListModal(add_section_btn);
+    console.log(add_section_btn);
+    add_section_btn.after(input_form);
     // Hiding the add options
-    const container = node.closest("#main-body");
+    const container = add_section_btn.closest("#main-body");
     disableTaskAddition(container);
     disableSectionAddition(container);
 
@@ -173,13 +190,11 @@ function restoreSectionAddition(container){
 
 }
 
-function addTodoListOnClick(event){
+function addTodoListOnClick(form, add_section_btn){
    // Any element within the add section button
-    event.preventDefault();
-    console.log("hi");
-    const node = event.target.closest(".submit-task");
-    if(!node) return;
-    const form = node.closest("form");
+   
+    if(!add_section_btn || !add_section_btn.classList.contains("add-section-container")) return;
+    console.log("here");
     const data = new FormData(form);
     const entries = Array.from(data.entries());
     const key = entries[0][0];
@@ -187,16 +202,21 @@ function addTodoListOnClick(event){
     // Creating todolist Object
     const constructor = {};
     constructor[key] = value;
+    console.log(Object.keys(constructor));
+    console.log(Object.values(constructor));
     // Restoring add buttons
-    const container = node.closest("#main-body");
+    const container = add_section_btn.parentNode;
     container.removeChild(form);
     restoreTaskAddition(container);
     restoreSectionAddition(container);
     // Creating and appending dom element
     const list = new ToDoList(constructor);
     const list_dom = ToDoListDOM(list);
-    console.log(this);
-    this.after(list_dom);
+    console.log("I reached this point");
+    console.log(list_dom);
+    add_section_btn.after(list_dom);
+    const new_add_section_btn = addSectionButton();
+    list_dom.after(new_add_section_btn);
 
 
 
