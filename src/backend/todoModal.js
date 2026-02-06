@@ -35,7 +35,6 @@ function addTodoListModal(add_section_btn){
     form.appendChild(lower);
 
     // Adding event listeners
-    console.log("event listenr about to be set");
     submit_btn.addEventListener("click", (evt) => {
         evt.preventDefault();
         addTodoListOnClick(form, add_section_btn);

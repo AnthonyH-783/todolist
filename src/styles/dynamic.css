@@ -9,6 +9,16 @@
 .task-container p{
     max-width: 70ch;
 }
+.delete, .edit{
+    padding: 0.1rem;
+    border-radius: 6px;
+}
+.delete:hover, .edit:hover{
+    cursor: pointer;
+    background-color: #e3e1e1;
+
+}
+
 
 .drag{
     cursor: grab;

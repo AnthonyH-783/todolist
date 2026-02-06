@@ -217,10 +217,113 @@ function addTodoListOnClick(form, add_section_btn){
     add_section_btn.after(list_dom);
     const new_add_section_btn = addSectionButton();
     list_dom.after(new_add_section_btn);
+}
+
+function deleteTask(event){
+    const node = event.target.closest(".delete");
+    if(!node || !node.closest(".task-container")) return;
+    const task = node.closest(".task-container");
+    task.remove();
+}
+
+function deleteTodoList(event){
+    const node = event.target.closest(".delete");
+    if(!node || node.closest(".task-container")) return;
+    const todo_lst = node.closest(".todo-container");
+    const add_section_btn = todo_lst.nextSibling;
+    add_section_btn.remove();
+    todo_lst.remove();
+}
+
+function fillFormWithOldData(task_container, form){
+    // Gathering old data
+    const title = task_container.querySelector("h3").innerText;
+    const description = task_container.querySelector("p").innerText;
+    const due = task_container.querySelector("span[data-due]").dataset.due;
+    const priority = task_container.querySelector("div[data-priority]").dataset.priority;
+    // Filling editing form
+    const title_input = form.querySelector("input.task-title");
+    const description_input = form.querySelector("input.task-description");
+    const date_btn = form.querySelector("button.date-btn");
+    const priority_input = form.querySelector("select[name=priority]");
+    const date_input = form.querySelector("input[type=datetime-local]");
+
+    title_input.value = title;
+    description_input.value = description;
+    date_input.value = due;
+    date_btn.innerText = due;
+    priority_input.value = priority;
+
+    form.querySelector(".submit-task").innerHTML = "Edit task";
+    
+}
+
+function convertFormForEditing(task_container, form){
+    // Removing Task Addition
+    const submit_btn = form.querySelector(".submit-task");
+    const cancel_btn = form.querySelector(".cancel-btn");
+    form.removeEventListener("click", addTaskBtnOnClick);
+    form.removeEventListener("click", cancelTaskModal);
+    submit_btn.addEventListener("click", (evt) => {
+        // Changing the data based on current form values
+        evt.preventDefault();
+        const data = new FormData(form);
+        updateTask(task_container, data);
+        // Making the task visible again
+        task_container.classList.remove("hidden");
+        form.remove();
+
+    });
+    cancel_btn.addEventListener("click", () => {
+        task_container.classList.remove("hidden");
+        form.remove();
+    })
+}
+function updateTask(task_container, data){
+    // Retrieving Task dom elements
+    const title = task_container.querySelector("h3");
+    const description = task_container.querySelector("p");
+    const due = task_container.querySelector("span[data-due]");
+    const priority = task_container.querySelector("div[data-priority]");
+    
+    title.innerText = data.get("title");
+    description.innerText = data.get("description");
+    due.dataset.due = data.get("due");
+    due.innerHTML = format(data.get("due"), "yyyy MMM dd");
+    // Updating Priority
+    priority.dataset.priority = data.get("priority");
+    const map = {"1": "p1", "2": "p2", "3": "p3", "4": "p4"};
+    priority.classList.remove("p1", "p2", "p3", "p4");
+    priority.classList.add(map[data.get("priority")]);
 
 
 
 }
 
+function editTask(event){
+    // Edit Button Validation
+    const node = event.target.closest(".edit");
+    const task_container = event.target.closest(".task-container");
+    if(!node || !node.closest(".task-container")) return;
+    // Opening Form and Hiding Task
+    const form = addTaskModal();
+    fillFormWithOldData(task_container, form);
+    task_container.after(form);
+    task_container.classList.add("hidden");
+    convertFormForEditing(task_container, form);
+}
+
+function editTodoTitle(event){
+    const node = event.target.closest("edit");
+    if(!node || node.closest("task-container")) return;
+    const header = node.closest(".todo-header");
+    header.classList.add("hidden");
+    const form = addTodoListModal();
+    header.after(form);
+    
+
+}
+
 export{dateBtnOnClick, addTaskBtnOnClick, addProjectBtnOnClick, cancelNewProject, openTaskModal,
-     cancelTaskModal, openTodoListModal, addTodoListOnClick};
+     cancelTaskModal, openTodoListModal, addTodoListOnClick, deleteTask, deleteTodoList,
+    editTask};

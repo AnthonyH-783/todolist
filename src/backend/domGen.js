@@ -1,8 +1,7 @@
 import "../styles/dynamic.css";
 import {Task} from "./task";
 import {format } from "date-fns";
-import {openTaskModal} from "./reusable-handlers";
-import { openTodoListModal } from "./reusable-handlers";
+import {deleteTask, openTaskModal, openTodoListModal, deleteTodoList, editTask} from "./reusable-handlers";
 import { addTodoListModal } from "./todoModal";
 
 /**
@@ -28,6 +27,7 @@ function TaskDOM(task){
     circle.classList.add("material-symbols-outlined", priority, "circle-container", "flex-row", "align-center", "justify-center");
     checked_circle.classList.add("material-symbols-outlined");
     circle.innerText = "circle";
+    circle.dataset.priority = task.priority;
     
     checked_circle.innerText = "check_circle";
     // Creating title, description, and due date
@@ -38,6 +38,7 @@ function TaskDOM(task){
     const date = document.createElement("div");
     date.appendChild(getIcon("calendar_clock"));
     const span = document.createElement("span");
+    span.dataset.due = task.due;
     const due_date = format(task.due, "MMM do y")
     span.innerText = due_date;
     date.classList.add("flex-row", "align-center");
@@ -56,8 +57,12 @@ function TaskDOM(task){
     left_div.appendChild(circle);
     left_div.appendChild(info);
     // Constructing right div
-    right_div.appendChild(getIcon("edit"));
-    right_div.appendChild(getIcon("more_horiz"));
+    const edit = getIcon("edit");
+    edit.classList.add("edit");
+    const remove = getIcon("delete");
+    remove.classList.add("delete");
+    right_div.appendChild(edit);
+    right_div.appendChild(remove);
     // Adding left and right to container
     container.appendChild(left_div);
     container.appendChild(right_div);
@@ -66,6 +71,10 @@ function TaskDOM(task){
     container.classList.add("task-container");
     left_div.classList.add("flex-row", "row-gap");
     right_div.classList.add("flex-row", "row-gap", "hidden", "edit-task");
+
+    // Adding event listeners
+    remove.addEventListener("click", deleteTask);
+    edit.addEventListener("click", editTask);
 
     return container;
 
@@ -119,7 +128,14 @@ function ToDoListDOM(list){
     const header_text = document.createElement("span");
     header_text.innerText = list.title;
     // Creating options icon
-    const options = getIcon("more_horiz");
+    const options = document.createElement("div");
+    const edit = getIcon("edit");
+    edit.classList.add("edit");
+    const remove = getIcon("delete");
+    remove.classList.add("delete");
+    options.appendChild(edit);
+    options.appendChild(remove);
+    options.classList.add("flex-row", "row-gap", "align-center");
     // Constructing header
     header.appendChild(chevron);
     header.appendChild(header_text);
@@ -145,6 +161,9 @@ function ToDoListDOM(list){
     container.appendChild(header);
     container.appendChild(body);
     container.classList.add("todo-container");
+
+    // Adding Event Listeners
+    remove.addEventListener("click", deleteTodoList);
 
 
     return container;

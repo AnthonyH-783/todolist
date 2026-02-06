@@ -66,6 +66,7 @@ function getTaskAttrDiv(){
     // Button content (icon + text)
     const date_icon = getIcon("event");
     const date = document.createElement("span");
+    date.classList.add(".date-display")
     date.innerHTML = "Date";
     date_btn.appendChild(date_icon);
     date_btn.appendChild(date);
