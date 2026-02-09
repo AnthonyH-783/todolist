@@ -1,7 +1,7 @@
 import "../styles/dynamic.css";
 import {Task} from "./task";
 import {format } from "date-fns";
-import {deleteTask, openTaskModal, openTodoListModal, deleteTodoList, editTask} from "./reusable-handlers";
+import {deleteTask, openTaskModal, openTodoListModal, deleteTodoList, editTask, editTodoTitle} from "./reusable-handlers";
 import { addTodoListModal } from "./todoModal";
 
 /**
@@ -127,6 +127,7 @@ function ToDoListDOM(list){
     chevron.classList.add("chevron-down");
     const header_text = document.createElement("span");
     header_text.innerText = list.title;
+    header_text.classList.add("todo-title");
     // Creating options icon
     const options = document.createElement("div");
     const edit = getIcon("edit");
@@ -163,6 +164,7 @@ function ToDoListDOM(list){
     container.classList.add("todo-container");
 
     // Adding Event Listeners
+    edit.addEventListener("click", editTodoTitle);
     remove.addEventListener("click", deleteTodoList);
 
 

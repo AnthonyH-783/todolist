@@ -35,10 +35,11 @@ function addTodoListModal(add_section_btn){
     form.appendChild(lower);
 
     // Adding event listeners
-    submit_btn.addEventListener("click", (evt) => {
+    form.submitHandler = ((evt) => {
         evt.preventDefault();
         addTodoListOnClick(form, add_section_btn);
     });
+    submit_btn.addEventListener("click", form.submitHandler);
     cancel_btn.addEventListener("click", cancelTaskModal);
 
     return form;

@@ -106,7 +106,7 @@ function addProjectBtnOnClick(event){
 function cancelNewProject(event){
     const node = event.target;
     if(!node || (!node.classList.contains("cancel-btn") && node.id !== "close-project-modal")) return;
-    console.log("project cancelled");
+  
     const dialog = document.querySelector("dialog");
     const form = dialog.querySelector("form");
     form.reset();
@@ -148,7 +148,6 @@ function openTodoListModal(add_section_btn){
     if(!add_section_btn || !add_section_btn.classList.contains("add-section-container")) return;
     // Adding the modal after the add section button
     const input_form = addTodoListModal(add_section_btn);
-    console.log(add_section_btn);
     add_section_btn.after(input_form);
     // Hiding the add options
     const container = add_section_btn.closest("#main-body");
@@ -194,7 +193,6 @@ function addTodoListOnClick(form, add_section_btn){
    // Any element within the add section button
    
     if(!add_section_btn || !add_section_btn.classList.contains("add-section-container")) return;
-    console.log("here");
     const data = new FormData(form);
     const entries = Array.from(data.entries());
     const key = entries[0][0];
@@ -202,8 +200,6 @@ function addTodoListOnClick(form, add_section_btn){
     // Creating todolist Object
     const constructor = {};
     constructor[key] = value;
-    console.log(Object.keys(constructor));
-    console.log(Object.values(constructor));
     // Restoring add buttons
     const container = add_section_btn.parentNode;
     container.removeChild(form);
@@ -212,8 +208,6 @@ function addTodoListOnClick(form, add_section_btn){
     // Creating and appending dom element
     const list = new ToDoList(constructor);
     const list_dom = ToDoListDOM(list);
-    console.log("I reached this point");
-    console.log(list_dom);
     add_section_btn.after(list_dom);
     const new_add_section_btn = addSectionButton();
     list_dom.after(new_add_section_btn);
@@ -258,7 +252,7 @@ function fillFormWithOldData(task_container, form){
     
 }
 
-function convertFormForEditing(task_container, form){
+function convertTaskFormForEditing(task_container, form){
     // Removing Task Addition
     const submit_btn = form.querySelector(".submit-task");
     const cancel_btn = form.querySelector(".cancel-btn");
@@ -272,11 +266,17 @@ function convertFormForEditing(task_container, form){
         // Making the task visible again
         task_container.classList.remove("hidden");
         form.remove();
+        // Re-enabling dom modifications
+        restoreTaskAddition(task_container.closest("#main-body"));
+        restoreSectionAddition(task_container.closest("#main-body"));
 
     });
     cancel_btn.addEventListener("click", () => {
         task_container.classList.remove("hidden");
         form.remove();
+        // Re-enabling dom modifications
+        restoreTaskAddition(task_container.closest("#main-body"));
+        restoreSectionAddition(task_container.closest("#main-body"));
     })
 }
 function updateTask(task_container, data){
@@ -305,25 +305,75 @@ function editTask(event){
     const node = event.target.closest(".edit");
     const task_container = event.target.closest(".task-container");
     if(!node || !node.closest(".task-container")) return;
-    // Opening Form and Hiding Task
+    // Opening Form and filling it with current data
     const form = addTaskModal();
     fillFormWithOldData(task_container, form);
     task_container.after(form);
+    // Hiding task container being edited
     task_container.classList.add("hidden");
-    convertFormForEditing(task_container, form);
+    // Disabling other dom modifications
+    disableTaskAddition(node.closest("#main-body"));
+    disableSectionAddition(node.closest("#main-body"));
+    // Adding editing event listeners to form
+    convertTaskFormForEditing(task_container, form);
 }
 
 function editTodoTitle(event){
-    const node = event.target.closest("edit");
+    // Validation of editing todo title
+    const node = event.target.closest(".edit");
     if(!node || node.closest("task-container")) return;
+    // Opening input for editing
     const header = node.closest(".todo-header");
+    const title = header.querySelector(".todo-title");
+    const add_section_btn = header.closest(".todo-container").previousElementSibling;
+    console.log(add_section_btn);
+    const form = addTodoListModal(add_section_btn);
+    const input = form.querySelector("input");
+    fillCurrentListTitle(title, input);
+    // Hiding current todo list  
     header.classList.add("hidden");
-    const form = addTodoListModal();
     header.after(form);
-    
+    // Blocking dom modifications
+    disableTaskAddition(header.closest("#main-body"));
+    disableSectionAddition(header.closest("#main-body"));
+    // Adding event listeners for editing
+    tweakTodoFormForEditing(header, form);
+}
+function fillCurrentListTitle(header, input){
+    // Getting current todo list title
+    const title = header.innerHTML;
+    // Copying title into input
+    input.value = title;
+}
+function tweakTodoFormForEditing(header, form){
+    const submit = form.querySelector(".submit-task");
+    const cancel = form.querySelector(".cancel-btn");
+    submit.removeEventListener("click", form.submitHandler);
+    submit.innerText = "Edit Title";
+    submit.addEventListener("click", (evt) => {
+        evt.preventDefault();
+        const input = form.querySelector("input");
+        const value = input.value;
+        header.querySelector(".todo-title").innerText = value;
+        header.classList.remove("hidden");
+        form.remove();
+        // Re-enabling dom modifications
+        restoreTaskAddition(header.closest("#main-body"));
+        restoreSectionAddition(header.closest("#main-body"));
+    });
+    cancel.removeEventListener("click", cancelTaskModal);
+    cancel.addEventListener("click", (evt) => {
+        evt.preventDefault();
+        header.classList.remove("hidden");
+        form.remove();
+        // Re-enabling dom modifications
+        restoreTaskAddition(header.closest("#main-body"));
+        restoreSectionAddition(header.closest("#main-body"));
+    })
+
 
 }
 
 export{dateBtnOnClick, addTaskBtnOnClick, addProjectBtnOnClick, cancelNewProject, openTaskModal,
-     cancelTaskModal, openTodoListModal, addTodoListOnClick, deleteTask, deleteTodoList,
-    editTask};
+       cancelTaskModal, openTodoListModal, addTodoListOnClick, deleteTask, deleteTodoList,
+       editTask, editTodoTitle};
