@@ -368,3 +368,9 @@ input:-webkit-autofill:active{
     font-weight: 700;
     color: #9b9a9a;
 }
+
+.project-delete{
+    position: absolute;
+    right: 0;
+}
+

@@ -5,15 +5,33 @@ class Project{
     #title = "";
     #to_dos = [];
     #unorganized_tasks = [];
+    #project_id;
 
 
     constructor({title, todos, unorganized} = {}) {
         this.title = title;
         this.todos = todos;
         this.unorganized_tasks = unorganized;
+        this.#project_id = this.#uid();
         
         
     }
+
+    forceIdToDefault(){
+        this.#project_id = "default";
+    }
+    /**
+     * Creates a unique identifier based on creation date and random numbers
+     * @returns 
+     */
+   #uid(){
+        return Date.now().toString(36) + Math.random().toString(36).substring(2);
+    }
+
+    get project_id(){
+        return this.#project_id;
+    }
+    
     get title(){
         return this.#title;
     }
@@ -82,6 +100,34 @@ class Project{
         }
         const index = this.#unorganized_tasks.findIndex((el) => el === task);
         this.#unorganized_tasks.splice(index, 1);
+    }
+    addTaskToList(task, list_id){
+        if(!list_id){
+            this.addTask(task);
+            return;
+        }
+        const list = this.#to_dos.find((lst) => lst.getId === list_id);
+        list.addTask(task);
+       }
+    removeTaskFromList(task_id, list_id){
+        if(!list_id){
+            const index = this.#unorganized_tasks.findIndex((el) => el.getId === task_id);
+            this.#unorganized_tasks.splice(index, 1);
+            return;
+        }
+        const list = this.#to_dos.find((lst) => lst.getId === list_id);
+        const index = list.findIndex((el) => el.getId === task_id);
+        list.splice(index, 1);
+    }
+    editTask(task_info, list_id){
+        if(!list_id){
+            const task = this.#unorganized_tasks.find((el) => el.getId === task_info.getId);
+            task.update(task_info);
+            return;
+        }
+        const list = this.#to_dos.find((lst) => lst.getId === list_id);
+        const task = list.find((tsk) => tsk.getId === task_info.getId);
+        task.update(task_info);
     }
     toJSON(){
         // Serializing todos

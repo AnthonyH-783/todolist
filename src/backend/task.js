@@ -1,4 +1,5 @@
 class Task{
+    #task_id;
     #title = "untitled";
     #description = "Description";
     #due = null;
@@ -16,8 +17,29 @@ class Task{
         this.priority = priority;
         this.notes = notes;
         this.completed = completed;
+        this.#task_id = this.#uid();
     }
-
+     /**
+     * Creates a unique identifier based on creation date and random numbers
+     * @returns 
+     */
+    #uid(){
+        return Date.now().toString(36) + Math.random().toString(36).substring(2);
+    }
+    get getId(){
+        return this.#task_id;
+    }
+    /**
+     * Updates the task
+     */
+    update({title, description, priority, due, completed}){
+        this.title = title;
+        this.description = description;
+        this.priority = parseInt(priority);
+        this.due = due;
+        console.log(completed);
+        this.completed = completed;
+    }
     get title(){
         return this.#title;
     }

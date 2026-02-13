@@ -15,6 +15,7 @@ import { addTodoListModal } from "./todoModal";
 function TaskDOM(task){
     // Creating main container
     const container = document.createElement("div");
+    container.dataset.task_id = task.getId;
     // Creating drag indicator
     const drag_indicator = document.createElement("span");
     drag_indicator.classList.add("material-symbols-outlined", "drag", "hidden");
@@ -120,6 +121,7 @@ function createProjectTitle(name){
 function ToDoListDOM(list){
     // Creating main containers
     const container = document.createElement("div");
+    container.dataset.list_id = list.getId;
     const header = document.createElement("div");
     const body = document.createElement("div");
     // Working on header
@@ -211,5 +213,6 @@ function addSectionButton(){
     });
     return add_section_btn;
 }
+
 
 export {TaskDOM, ToDoListDOM, createProjectTitle, createAddTaskButton, addSectionButton, getIcon};

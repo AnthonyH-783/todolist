@@ -66,12 +66,17 @@ main,nav{
     align-items: center;
     border-radius: 6px;
     padding: 0.3rem;
+    position: relative;
 }
 .nav-item:hover{
     background-color: #dadada;
     cursor: pointer;
 }
 .nav-item:active{
+    background-color: var(--light-orange);
+    color: var(--dark-orange);
+}
+.active{
     background-color: var(--light-orange);
     color: var(--dark-orange);
 }

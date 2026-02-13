@@ -1,12 +1,12 @@
 import {parse, format} from "date-fns";
-import { loadProjectDOM } from "./projectLoader";
+import { loadProjectDOM, addProjectToNavbar } from "./projectLoader";
 import { Project } from "./project";
 import { addTaskModal } from "./taskModal";
 import { addTodoListModal } from "./todoModal.js";
 import { Task } from "./task";
 import { TaskDOM, ToDoListDOM, addSectionButton} from "./domGen";
 import { ToDoList } from "./todo.js";
-
+import PubSub from "pubsub-js";
 
 function dateBtnOnClick(event) {
     // Any element within the date button
@@ -46,6 +46,8 @@ function addTaskBtnOnClick(event){
     }
     // Creating Task Object
     const task = new Task(constructor);
+    const project_id = node.closest(".project-dom").dataset.project_id;
+    const EVENT = "task:add";
     const task_dom = TaskDOM(task);
     // Selecting right container 
     const project_container = node.closest("#main-body");
@@ -53,9 +55,12 @@ function addTaskBtnOnClick(event){
     // Adding task to right container
     if(!is_bound){
         addTaskInProject(project_container, task_dom);
+        PubSub.publish(EVENT, {task, project_id});
     }
     else{
         const todo_container = is_bound.querySelector(".todo-body");
+        const list_id = todo_container.dataset.list_id;
+        PubSub.publish(EVENT, {task, list_id, project_id});
         addTaskInTodoList(todo_container, task_dom);
     }
     // Restoring add task button
@@ -87,13 +92,17 @@ function addProjectBtnOnClick(event){
     // Adding a listener for form submission
     if(!form.dataset.bound){
         form.addEventListener("submit", () => {
+            const ADDED_PORJECT_EVENT = "project:add";
             const data = new FormData(form);
             const entries = Array.from(data.entries());
             const title = entries[0][1];
             const project = new Project({title});
             form.reset();
             const container = button.closest("body").querySelector("#main-body");
+            const nav = document.querySelector("nav div#projects");
+            PubSub.publish(ADDED_PORJECT_EVENT, project);
             loadProjectDOM(project, container);
+            addProjectToNavbar(project, nav);
 
         });
         form.dataset.bound = true;
@@ -118,7 +127,7 @@ function openTaskModal(event){
     if(!node || !node.closest(".add-btn-lst")) return;
     // Selecting right container 
     const is_bound = node.closest(".todo-container") !== null;
-    const container = (is_bound) ? node.closest(".todo-container") : node.closest("#main-body");
+    const container = (is_bound) ? node.closest(".todo-container") : node.closest(".project-dom");
     // Opening modal
     const modal = addTaskModal();
     container.appendChild(modal);
@@ -214,9 +223,16 @@ function addTodoListOnClick(form, add_section_btn){
 }
 
 function deleteTask(event){
+    const EVENT = "task:delete";
     const node = event.target.closest(".delete");
     if(!node || !node.closest(".task-container")) return;
     const task = node.closest(".task-container");
+    const list = task.closest(".todo-container");
+    const project = task.closest(".project-dom");
+    const task_id = task.dataset.task_id;
+    const list_id = (!list)? null: list.dataset.list_id;
+    const project_id = project.dataset.project_id;
+    PubSub.publish(EVENT, {task_id, list_id, project_id});
     task.remove();
 }
 
@@ -263,6 +279,23 @@ function convertTaskFormForEditing(task_container, form){
         evt.preventDefault();
         const data = new FormData(form);
         updateTask(task_container, data);
+        
+        // Creating task object for pubsub
+        const EVENT = "task:edit";
+        const getId = task_container.dataset.task_id;
+        const title = data.get("title");
+        const description = data.get("description");
+        const due = data.get("due");
+        const circle = task_container.querySelector(".circle-container");
+        const completed = (circle.innerText === "circle")? false : true;
+        const priority = data.get("priority");
+        console.log(completed);
+        const list = task_container.closest(".todo-container");
+        const list_id = (!list) ? null: list.dataset.list_id;
+        const project_id = task_container.closest(".project-dom").dataset.project_id;
+        const task_info = {getId, title, description, due, completed, priority};
+        const event_obj = {task_info, list_id, project_id}
+        PubSub.publish(EVENT, event_obj);
         // Making the task visible again
         task_container.classList.remove("hidden");
         form.remove();
@@ -370,8 +403,19 @@ function tweakTodoFormForEditing(header, form){
         restoreTaskAddition(header.closest("#main-body"));
         restoreSectionAddition(header.closest("#main-body"));
     })
+}
 
+function extractProjectId(event){
+    // Validating project tab
+    const node = event.target;
+    if(!node || !node.hasAttribute("data-project_id")) return;
+    const project_id = node.dataset.project_id;
+    return project_id;
+}
 
+function findProject(project_id, projects){
+    const project_obj = projects.find((el) => el.project_id === project_id);
+    return project_obj;
 }
 
 export{dateBtnOnClick, addTaskBtnOnClick, addProjectBtnOnClick, cancelNewProject, openTaskModal,

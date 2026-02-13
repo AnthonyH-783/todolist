@@ -9,16 +9,17 @@ import { taskMouseEnter, taskMouseLeave, circleOnClick, onChevronClick,
 } from "./backend/handlers.js";
 import { addTaskModal} from "./backend/taskModal.js";
 import "./styles/dynamic.css";
-import { load } from "./backend/projectLoader.js";
+import { load, loadProjectDOM } from "./backend/projectLoader.js";
 import { addProjectModal } from "./backend/projectModal.js";
 import { addProjectBtnOnClick, cancelNewProject } from "./backend/reusable-handlers.js";
 import { loadSavedProjects } from "./backend/projectLoader.js";
+import {Projects} from "./backend/projects.js";
 
 
 
 
 
-(async function ScreenController(){
+(function ScreenController(){
 
     // Getting all initial DOM Selections
     const main = document.getElementById("main-body");
@@ -34,13 +35,69 @@ import { loadSavedProjects } from "./backend/projectLoader.js";
     const form = dialog.querySelector("form");
 
     // Initializing Required Data Structures
-    const projects = [];
     const saved_projects = loadSavedProjects();
-    projects.concat(saved_projects);
+    const projects = new Projects(saved_projects);
+    const home = setUpHome();
+    home.forceIdToDefault();
+    if(projects.isEmpty()) projects.add(home);
+    // Subsccribing to project addition
+    const PROJECT_ADD = "project:add";
+    const projectAddSubscriber = function(event, data){
+        projects.add(data);
+        
+    }
+    const token_add = PubSub.subscribe(PROJECT_ADD, projectAddSubscriber);
+    // Subscribing to project deletion
+    const PROJECT_DELETE = "project:delete";
+    const projectRemoveSubscriber = function(event, data) {
+        if(typeof data === "string"){
+            projects.removeById(data);
+            // Loading another project
+            const current_id = project_tabs.querySelector(".active").dataset.project_id;
+            const project = projects.findById(current_id);
+            loadProjectDOM(project, main);
+            
+        }
+
+    }
+    const token_remove = PubSub.subscribe(PROJECT_DELETE, projectRemoveSubscriber);
+
+    const PROJECT_SELECT = "project:select";
+    const projectSelectSubscriber = function(event, data){
+        if(typeof data === "string"){
+          const current_id = project_tabs.querySelector(".active").dataset.project_id;
+          const project = projects.findById(data);
+          loadProjectDOM(project, main);
+        }
+
+    }
+
+    const token_select = PubSub.subscribe(PROJECT_SELECT, projectSelectSubscriber);
     
+    const TASK_ADD = "task:add";
+    const taskAddSubscriber = function(event, data){
+        const {task, list_id, project_id} = data;
+        const project = projects.findById(project_id);
+        project.addTaskToList(task, list_id);
+    }
+    const token_add_task = PubSub.subscribe(TASK_ADD, taskAddSubscriber);
+
+    const TASK_DELETE = "task:delete";
+    const taskDeleteSubscriber = function(event, data){
+        const {task_id, list_id, project_id} = data;
+        const project = projects.findById(project_id);
+        project.removeTaskFromList(task_id, list_id);
+    }
+    const token_delete_task = PubSub.subscribe(TASK_DELETE, taskDeleteSubscriber);
     
-    
-    
+    const TASK_EDIT = "task:edit";
+    const taskEditSubscriber = function(event, data){
+        const {task_info, list_id, project_id} = data;
+        const project = projects.findById(project_id);
+        project.editTask(task_info, list_id);
+        console.log(project);
+    }
+    const token_edit_task = PubSub.subscribe(TASK_EDIT, taskEditSubscriber);
 
 
     // Rendering DOM given current data structures
@@ -61,7 +118,10 @@ import { loadSavedProjects } from "./backend/projectLoader.js";
 
 })();
 
-function initializeProjects(){
-    const projects = new Array();
+
+function setUpHome(){
+    const home = new Project({title: "Home"});
+    return home;
     
 }
+

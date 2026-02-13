@@ -4,6 +4,7 @@
 import {Task} from "./task.js";
 
 class ToDoList{
+    #list_id;
     #title = "untitled";
     #description = "Description";
     #due = null;
@@ -22,8 +23,20 @@ class ToDoList{
         this.notes = notes;
         this.completed = completed;
         this.tasks = tasks;
+        this.#list_id = this.#uid();
     }
  
+    /**
+     * Creates a unique identifier based on creation date and random numbers
+     * @returns 
+     */
+   #uid(){
+        return Date.now().toString(36) + Math.random().toString(36).substring(2);
+    }
+    get getId(){
+        return this.#list_id;
+    }
+
     get title(){
         return this.#title;
     }
